@@ -223,6 +223,11 @@ const nextConfig = (phase: string): NextConfig => {
 
   return {
     output: process.env.BUILD_STANDALONE === "true" ? "standalone" : undefined,
+    // Lets the dev server accept cross-origin requests for its own static/HMR
+    // resources when running behind a preview proxy on a dynamic subdomain.
+    allowedDevOrigins: process.env.NEXT_DEV_ALLOWED_ORIGIN_HOST
+      ? [process.env.NEXT_DEV_ALLOWED_ORIGIN_HOST]
+      : undefined,
     serverExternalPackages: [
       "deasync",
       "http-cookie-agent",
